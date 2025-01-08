@@ -1,0 +1,94 @@
+import Link from "next/link";
+import { MdMarkEmailRead } from "react-icons/md";
+import { PiReadCvLogoFill } from "react-icons/pi";
+
+
+type jobSapplicationType={
+    name:string;
+    pic:string;
+
+    email:string;
+    resume:string;
+    address:string;
+    applicationText:string;
+    companyName:string;
+    jobTitle:string;
+}
+
+
+
+export default function JobsApplication({name,pic,email,resume,address,applicationText,companyName,jobTitle}:jobSapplicationType){
+
+
+
+
+return (
+    <>
+
+		
+			<div className="bg-white border border-white shadow-lg  rounded-3xl p-6 m-4  hover:scale-105 duration-500 ">
+				<div className="flex-none sm:flex">
+					<div className=" relative h-42 w-32 lg:min-w-32  sm:mb-0 mb-3">
+						<img src={pic} alt="aji" className=" w-70 h-52 object-cover rounded-2xl"
+                        />
+						<a href="#"
+							className="absolute -right-2 bottom-2   -ml-3  text-white p-1 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+								className="h-4 w-4">
+								<path
+									d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+								</path>
+							</svg>
+						</a>
+					</div>
+					<div className="flex-auto sm:ml-5 justify-evenly">
+						<div className="flex items-center justify-between sm:mt-2">
+							<div className="flex items-center">
+								<div className="flex flex-col">
+									<div className="w-full flex-none text-lg mb-3 text-gray-800 font-bold leading-none">{name}</div>
+									<div className="flex-auto text-gray-500 my-1">
+										<span className="mr-3 bg-green-50 rounded-full hover:bg-green-100 p-2">{jobTitle}</span><span className="mr-3 border-r border-gray-200  max-h-0"></span>
+                                        <span className="bg-blue-50 p-2 rounded-full hover:bg-blue-100">{address}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+			 
+
+            <div className="text-gray-500  lg:w-1/2 "><p className="break-words whitespace-normal  overflow-hidden"  >{applicationText }</p>
+            
+            </div>
+            
+
+                                   <div className="flex gap-4 items-center flex-wrap" >
+                                         
+                                         <div className="flex items-center gap-1 text-gray-500 text-xl">
+                                         <MdMarkEmailRead />
+                                         <p>{email}</p>
+
+                                         </div>
+
+                                      <button className="flex items-center gap-1  text-white bg-blue-500 hover:bg-blue-600 shadow-sm rounded-md p-1">
+                                      <PiReadCvLogoFill />
+                                      <Link href={resume} target="_blank">Get CV</Link>                                      
+
+                                      </button>
+
+                                   </div>
+
+
+						</div>
+					</div>
+				</div>
+			
+
+
+
+
+
+ 
+    </>
+)
+
+}
+

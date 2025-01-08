@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .loader {
+    @apply relative bg-black bg-clip-text;
+    background: radial-gradient(circle closest-side, #000 94%, transparent) right/calc(200% - 1em) 100%;
+    animation: loader-animation 1s infinite alternate linear;
+  }
+
+  .loader-text {
+    @apply text-transparent;
+    line-height: 1em;
+    background: inherit;
+    background-image: radial-gradient(circle closest-side, #fff 94%, #000);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  @keyframes loader-animation {
+    100% {
+      background-position: left;
+    }
+  }
+}
+
+
+@keyframes popup {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .popup-animation {
+    animation: popup 0.5s ease-in-out;
+  }
+}
