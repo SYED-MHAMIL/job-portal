@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 export default function AllUser({ email, name,pic,role}:{email:string , name:string, pic: string , role:string}) {
   return (
@@ -80,7 +81,10 @@ export default function AllUser({ email, name,pic,role}:{email:string , name:str
           </td>
           <td className="p-4 text-sm">
             <div className="flex items-center cursor-pointer w-max">
-              <img
+              <Image
+              alt=''
+              height={100}
+              width={100}
                 src={pic}
                 className="w-9 h-9 object-contain rounded-full shrink-0"
               />

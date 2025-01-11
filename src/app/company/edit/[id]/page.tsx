@@ -1,7 +1,7 @@
 "use client";
-import EditCard from "@/components/edit-card";
+
 import { db } from "@/firebase/firebaseConfig";
-import { doc, DocumentData, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
@@ -11,7 +11,7 @@ type ParamsType = {
 };
 
 export default function EditJobs({ params: { id } }: ParamsType) {
-  const [index, setIndex] = useState("");
+//   const [index, setIndex] = useState("");3
  
   const [jobTitle, setJobTitle] = useState("");
   const [jd, setJD] = useState("");
@@ -25,7 +25,7 @@ export default function EditJobs({ params: { id } }: ParamsType) {
   const  route =  useRouter();
 
  const updateData=async()=>{
-    let docRef = doc(db, "jobs", id);
+    const docRef = doc(db, "jobs", id);
          
     await updateDoc(docRef , {jobTitle,jd,qualification,skillSet,otherReq,jobType,salaryRange
 ,address
@@ -55,21 +55,20 @@ route.push("/company/all-jobs")
   }, []);
 
   const fetchData = async () => {
-    let docRef = doc(db, "jobs", id);
+    const docRef = doc(db, "jobs", id);
 
     try {
-      let dataSnaps = await getDoc(docRef);
-      let id = dataSnaps.id;
-      let address1 = dataSnaps.data()?.address;
-      let jobDescription1 = dataSnaps.data()?.jobDescription;
-      let jobTitle1 = dataSnaps.data()?.jobTitle;
-      let jobType1 = dataSnaps.data()?.jobType;
-      let otherRequirements1 = dataSnaps.data()?.otherRequirements;
-      let qualification1 = dataSnaps.data()?.qualification;
-      let salaryRange1 = dataSnaps.data()?.salaryRange;
-      let skillSet1 = dataSnaps.data()?.skillSet;
+      const dataSnaps = await getDoc(docRef);
+      const address1 = dataSnaps.data()?.address;
+      const jobDescription1 = dataSnaps.data()?.jobDescription;
+      const jobTitle1 = dataSnaps.data()?.jobTitle;
+      const jobType1 = dataSnaps.data()?.jobType;
+      const otherRequirements1 = dataSnaps.data()?.otherRequirements;
+      const qualification1 = dataSnaps.data()?.qualification;
+      const salaryRange1 = dataSnaps.data()?.salaryRange;
+      const skillSet1 = dataSnaps.data()?.skillSet;
 
-      setIndex(id);
+      
       setAddress(address1);
       setJD(jobDescription1);
       setJobTitle(jobTitle1);

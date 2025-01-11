@@ -1,10 +1,9 @@
 "use client";
-import AllUser from "@/components/all-user";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, DocumentData, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-
-export default function page() {
+import Image from "next/image";
+export default function Page() {
   const [fetchAllJobs, setFetchAllJobs] = useState<DocumentData[]>([]);
   const [isLoding, setIsLoading] = useState(false);
 
@@ -14,10 +13,10 @@ export default function page() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    let collectionRef = collection(db, "users");
-    const snaper=   query(collectionRef,where("role" ,"!=", "admin"))
-    let unsub = onSnapshot(snaper, (snaps) => {
-      let todos = snaps.docs.map((docDataSnap) => {
+    const collectionRef = collection(db, "users");
+    const snaper=query(collectionRef,where("role" ,"!=", "admin"))
+    const unsub = onSnapshot(snaper, (snaps) => {
+      const todos = snaps.docs.map((docDataSnap) => {
         return docDataSnap.data();
       });
 
@@ -120,8 +119,8 @@ export default function page() {
                     </tr>
                   </thead>
                   <tbody className="whitespace-nowrap">
-                    {fetchAllJobs.map(({ email, name, pic, role }) => (
-                      <tr className="odd:bg-blue-50">
+                    {fetchAllJobs.map(({ email, name, pic, role },i) => (
+                      <tr key={i} className="odd:bg-blue-50">
                         <td className="pl-4 w-8">
                           <input
                             id="checkbox1"
@@ -147,7 +146,10 @@ export default function page() {
                         </td>
                         <td className="p-4 text-sm">
                           <div className="flex items-center cursor-pointer w-max">
-                            <img
+                            <Image
+                              height={200}
+                              width={200}
+                              alt="df"
                               src={pic || "/img.png"}
                               className="w-9 h-9 object-contain rounded-full shrink-0"
                             />
@@ -208,10 +210,7 @@ export default function page() {
             )
           )
 
-          // fetchAllJobs.map(({ email, name,pic,role}) => (
-          //     <AllUser email={email} name={name} pic={pic}  role={role}/>
-
-          // ))
+         
         }
       </div>
     </>

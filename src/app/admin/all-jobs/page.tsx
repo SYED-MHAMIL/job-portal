@@ -1,8 +1,7 @@
 "use client";
 
 import AdminCard from "@/components/admin-card";
-import JobseekerCard from "@/components/jobseeker-card ";
-import { auth, db } from "@/firebase/firebaseConfig";
+import { db } from "@/firebase/firebaseConfig";
 import { collection, doc, DocumentData, getDoc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -18,14 +17,14 @@ useEffect(()=>{
 
 const fetchData= async()=>{
      setIsLoading(true)
-        let collectionRef=collection(db,"jobs");
-        let unsub=onSnapshot(collectionRef,async(snaps)=>{  
+        const collectionRef=collection(db,"jobs");
+        const unsub=onSnapshot(collectionRef,async(snaps)=>{  
  
-          let todos=snaps.docs.map(async(docDataSnap)=>{
+          const todos=snaps.docs.map(async(docDataSnap)=>{
 
-                            let jobData =docDataSnap.data();
-                            let companyUid=docDataSnap.data().uid;
-                            let  docId=docDataSnap.id;
+                            const jobData =docDataSnap.data();
+                            const companyUid=docDataSnap.data().uid;
+                            const  docId=docDataSnap.id;
                          
             
                            const companyRef= doc(db,"users",companyUid);
@@ -44,7 +43,7 @@ const fetchData= async()=>{
         });
             //  console.log(todos);
 
-             let setAllData=  await Promise.all(todos)
+             const setAllData=  await Promise.all(todos)
              console.log(setAllData);
              setIsLoading(false)
              setFetchAllJobs(setAllData)

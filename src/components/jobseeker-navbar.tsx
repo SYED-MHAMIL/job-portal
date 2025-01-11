@@ -5,14 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function JobSeekerNavbar() {
-  const route = useRouter();
-
-  const signout = async () => {
-    await signOut(auth).then(() => {
-      route.push("/login");
-    });
-  };
-
+  const route = useRouter()
   return (
 <div className="navbar bg-base-100 border-b">
     <div className="navbar-start">
@@ -42,10 +35,10 @@ export default function JobSeekerNavbar() {
       </div>
     </div>
     <div className="navbar-center">
-      <a className="btn btn-ghost text-xl">Job Portal</a>
+      <a className="btn btn-ghost text-2xl">Job Portal</a>
     </div>
     <div className="navbar-end">
-      <button className="btn btn-ghost " onClick={()=>{
+      <button className="btn btn-ghost  hover:bg-red-600  hover:text-white border-red-600 lg:text-xl text-red-600 text-md  " onClick={()=>{
         signOut(auth)
         route.push("/login")
       }}>

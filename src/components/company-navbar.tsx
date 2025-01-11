@@ -37,7 +37,7 @@ export default function CompanyNavbar() {
       <a className="btn btn-ghost text-xl">Job Portal</a>
     </div>
     <div className="navbar-end">
-      <button className="btn btn-ghost " onClick={()=>{
+      <button className="btn btn-ghost  hover:bg-red-600  hover:text-white border-red-600 lg:text-xl text-red-600 text-md " onClick={()=>{
         signOut(auth)
         route.push("/login")
       }}>

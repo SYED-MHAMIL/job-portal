@@ -2,11 +2,9 @@
 "use client";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { UserType } from "@/types/user-type";
-import { UserRoleType } from "@/types/userRoleType";
-
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+
 import {
   createContext,
   ReactNode,
@@ -29,8 +27,6 @@ const AuthContext = createContext<ContextType | null>(null);
 export default function AuthContextProvider({ children }: ChildrenType) {
   const [user, setUser] = useState<UserType | null>(null);
 
-  const route = useRouter();
-
   useEffect(() => {
     
     onAuthStateChanged(auth, (user) => {
@@ -46,10 +42,10 @@ export default function AuthContextProvider({ children }: ChildrenType) {
 
   
   const fetchuserData = async (uid: string) => {
-    let docRef = doc(db, "users", uid);
+    const docRef = doc(db, "users", uid);
     try {
-      let userFound = await getDoc(docRef);
-      let userOne = userFound.data();
+      const userFound = await getDoc(docRef);
+      const userOne = userFound.data();
       
       if (!userOne) return;
       setUser(userOne as UserType);

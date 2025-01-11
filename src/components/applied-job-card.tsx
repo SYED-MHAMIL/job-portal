@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { MdOutlineDescription } from "react-icons/md";
 
 
@@ -10,15 +10,15 @@ type JobCardType = {
   // companyName:string;
   // companyLogo:string;
   salary:string;
-  isFavourite?:Boolean
+  isFavourite?:boolean
   // jobID:string;
 };
 
 
 
-export default function AppliedJobCard({jobTitle, jobDescription ,jobType,address ,salary,isFavourite}: JobCardType){
+export default function AppliedJobCard({jobTitle, jobDescription ,jobType,address ,isFavourite}: JobCardType){
 
-const [isOpen,setIsOpen]=useState(false)
+
    
 
     return(

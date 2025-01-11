@@ -22,13 +22,13 @@ export default function JobCard({
   address,
   jobId,
   deleted,
-  hold
+  
 }: JobCardType) {
 
 
   const DeleteData = async () => {
     // let uid=auth.currentUser?.uid
-    let docRef = doc(db, "jobs", jobId);
+    const docRef = doc(db, "jobs", jobId);
     try {
       await deleteDoc(docRef);
       // console.log("delete");

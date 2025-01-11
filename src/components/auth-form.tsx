@@ -21,8 +21,10 @@ export default function AuthForm({isSign,func}:AuthFormType){
   
    return (
     <>
-    <div className="card bg-base-100 w-96 shadow-2xl border  p-4">
-    <label className="input input-bordered flex items-center gap-2 mt-2">
+    <div className="card bg-base-100 w-96 shadow-2xl border  p-8">
+   <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">{  isSign ?"Sign in to your account" : "Login  Your account"}</h1>
+     <h4 className="mt-3 text-sm font-medium ">Your email</h4>
+    <label className="input input-bordered flex items-center gap-2 ">
   <input type="email" className="grow" placeholder="Email"value={email} onChange={(e)=> setEmail(e.target.value)} />
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +37,9 @@ export default function AuthForm({isSign,func}:AuthFormType){
       clipRule="evenodd" />
   </svg>
 </label>
-<label className="input input-bordered flex items-center gap-2 mt-2">
+<h4 className="mt-3 text-sm font-medium ">Password</h4>
+
+<label className={`input input-bordered flex items-center gap-2 ${!isSign && "mb-4"}`}>
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
@@ -48,26 +52,26 @@ export default function AuthForm({isSign,func}:AuthFormType){
   </svg>
   <input type="password" className="grow" placeholder="Password"  value={password} onChange={(e)=> setPassword(e.target.value)}/>
 </label>
+{  isSign && <h4 className="mt-3 text-sm font-medium ">Role</h4>}
 
-{isSign &&<select className="select w-full border-2  border-gray-300 mt-2" onChange={(e)=>setRole(e.target.value as UserRoleType)}>
+{isSign &&<select className="select w-full border-2 mb-3 border-gray-300" onChange={(e)=>setRole(e.target.value as UserRoleType)}>
   <option disabled selected>Save as ?</option>
   <option value={"company"}>company</option>
   <option value={"job seeker"}>Job seeker</option>
   
 </select>}
 
-{ !isSign ?<div>
-  <p>     don't have an account? <span className="text-[#4b0082] font-bold"><Link href={"/signup"}>Signup here.</Link></span></p>
-</div>
-
-:<div>
-  <p>         Already have an account? <span className="text-[#4b0082] font-bold"><Link href={"/login"} className="text-red">Login here.</Link></span></p>
-</div>
-}
-
 
 
 <button className="btn btn-primary" onClick={()=> {func(email,password,role)}}>{isSign ? "Sign up" : "Login"}</button>
+
+{ !isSign ?<div>
+  <p>Doesn&apos;t have an account? <span className="text-primary "><Link href={"/signup"}>Signup here.</Link></span></p>
+</div>
+:<div>
+  <p>Already have an account? <span className="text-primary "><Link href={"/login"} className="text-red">Login here.</Link></span></p>
+</div>
+}
 </div>
 
 

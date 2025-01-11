@@ -1,27 +1,45 @@
 "use client"
 import AuthForm from "@/components/auth-form";
 import { auth } from "@/firebase/firebaseConfig";
-import { UserRoleType } from "@/types/userRoleType"
+
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 
 export default function  Login(){
  
     const loginHander= async(email:string,password:string)=>{
          
        await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          // ...
-          toast.success("Login Successfull"
+        .then(() => {
+
+
+          toast.success("Login Successfull",{
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                    }
           )
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+        .catch(() => {;
+       
           
-          toast.error(errorMessage)
+          toast.error("User not Found",{
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            })
         });
     }
       
