@@ -1,10 +1,11 @@
 "use client";
 
+import { useAuthContext } from "@/context/auth.context";
 import { auth, db, storage } from "@/firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useRouter } from "next/navigation";
-import { useState, } from "react";
+import { useEffect, useState, } from "react";
 import { Bounce, toast } from "react-toastify";
 
 export default function CompanyInfo() {
@@ -15,6 +16,17 @@ export default function CompanyInfo() {
   const [logo, setLogo] = useState<File>();
    
  const router=useRouter();
+ const {user}=useAuthContext()!
+
+
+ useEffect(()=>{
+  if(user && user?.role === "company" && ( "name" in user)){
+    router.push("/company/create-new-job");
+  }
+ },[])
+
+
+
 
 
   const uploadLogo = () => {
