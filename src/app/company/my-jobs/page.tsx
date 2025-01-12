@@ -28,6 +28,15 @@ export default function AllJobs() {
     fetchAllJobs();
   }, [user]);
 
+ useEffect(()=>{
+  if(user && user?.role === "company" && !( "name" in user)){
+    router.push("/company/companyinfo");
+  }
+ },[])
+
+
+
+
   const fetchAllJobs = async () => {
     const jobsRef = collection(db, "jobs");
     const uid = user?.uid;

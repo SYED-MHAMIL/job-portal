@@ -1,8 +1,10 @@
 "use client";
 
+import { useAuthContext } from "@/context/auth.context";
 import { auth, db } from "@/firebase/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 
 export default function CreateNewJob() {
@@ -14,48 +16,73 @@ export default function CreateNewJob() {
   const [jobType, setJobType] = useState("");
   const [salaryRange, setSalaryRange] = useState("");
   const [address, setAddress] = useState("");
+   const {user}=useAuthContext()!
+  const router = useRouter();
+
+ useEffect(()=>{
+  if(user && user?.role === "company" && !( "name" in user)){
+    router.push("/company/companyinfo");
+  }
+ },[])
+
+
+
+
 
   const createNewJob = async () => {
-    const newJob = {
-      jobTitle,
-      jobDescription: jd,
-      qualification,
-      skillSet,
-      otherRequirements: otherReq,
-      jobType,
-      salaryRange,
-      address,
-      uid: auth.currentUser?.uid,
-    };  
+    try {
+      const newJob = {
+        jobTitle,
+        jobDescription: jd,
+        qualification,
+        skillSet,
+        otherRequirements: otherReq,
+        jobType,
+        salaryRange,
+        address,
+        uid: auth.currentUser?.uid,
+      };
 
+      const newJobsRef = collection(db, "jobs");
+      await addDoc(newJobsRef, newJob);
+      toast.success("Successfully Create ", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
 
+      setJobTitle("");
+      setJD("");
+      setQualification("");
+      setSalaryRange("");
+      setAddress("");
+      setOtherReq("");
+      setSkillSet("");
+      setJobType("");
+      router.push("/company/my-jobs");
+    } catch (error) {
 
-    
-    
-    const newJobsRef = collection(db, "jobs");
-    await addDoc(newJobsRef, newJob);
-    toast.success("Successfully Create ", {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
+      toast.error(`Post have't saved : ${error}` ,{
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: false,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Bounce,
+                  })
 
-    setJobTitle("");
-    setJD("");
-    setQualification("");
-    setSalaryRange("");
-    setAddress("");
-    setOtherReq("");
-    setSkillSet("");
-    setJobType("");
+    }
   };
-    
+
   return (
     <div className="flex flex-col justify-center items-center mt-20 ">
       <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-black">

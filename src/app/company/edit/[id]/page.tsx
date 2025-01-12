@@ -80,7 +80,17 @@ route.push("/company/all-jobs")
 
 
     } catch (error) {
-      console.log(error);
+     toast.error(`don't edit : ${error}` ,{
+                 position: "top-center",
+                 autoClose: 3000,
+                 hideProgressBar: false,
+                 closeOnClick: false,
+                 pauseOnHover: true,
+                 draggable: true,
+                 progress: undefined,
+                 theme: "light",
+                 transition: Bounce,
+                 });
     }
   };
 

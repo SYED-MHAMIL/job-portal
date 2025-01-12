@@ -21,6 +21,15 @@ export default function AppliedJob() {
   const { user } = useAuthContext()!;
   const router = useRouter();
 
+
+ useEffect(()=>{
+  if(user && user?.role === "company" && !( "name" in user)){
+    router.push("/company/companyinfo");
+  }
+ },[])
+
+
+
   useEffect(() => {
     if (user && user?.role === "job seeker" && !("name" in user)) {
       router.push("/jobseeker/jobseeker-info");

@@ -18,6 +18,16 @@ export default function FavouriteJobs() {
   const { user } = useAuthContext()!;
   const router = useRouter();
   const [isData, setIsData] = useState(false);
+
+// protected route
+ useEffect(()=>{
+  if(user && user?.role === "company" && !( "name" in user)){
+    router.push("/company/companyinfo");
+  }
+ },[])
+
+
+
   useEffect(() => {
     if (user && user?.role === "job seeker" && !("name" in user)) {
       router.push("/jobseeker/jobseeker-info");

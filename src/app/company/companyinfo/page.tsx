@@ -5,6 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useRouter } from "next/navigation";
 import { useState, } from "react";
+import { Bounce, toast } from "react-toastify";
 
 export default function CompanyInfo() {
   const [name, setName] = useState("");
@@ -18,7 +19,17 @@ export default function CompanyInfo() {
 
   const uploadLogo = () => {
     if (!name || !description || !address || !phone || !logo) {
-      console.log("All fields are required.");
+      toast.error("All fields are required.",{
+                  position: "top-center",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: false,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                  transition: Bounce,
+                  });
       return;
     }
 
@@ -30,13 +41,23 @@ export default function CompanyInfo() {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         console.log("File available at", downloadURL);
         saveCompanyInfo(downloadURL);
-        router.push('/create-new-job')
+        router.push('/company/create-new-job')
 
 
 
 
       } catch (error) {
-        console.error("Error getting download URL:", error);
+       toast.error(`Error getting download URL${error}`,{
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
       }
     });
   };

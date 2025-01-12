@@ -1,6 +1,7 @@
 "use client";
 
 import JobsApplication from "@/components/jobsApplication";
+import { useAuthContext } from "@/context/auth.context";
 import { app, auth } from "@/firebase/firebaseConfig";
 import {  Result } from "antd";
 import {
@@ -13,6 +14,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 const db = getFirestore(app);
 
@@ -20,7 +22,24 @@ export default function SeeApplications() {
   const [fetchAllJobs, setFetchAllJobs] = useState<DocumentData[]>([]);
   const [isLoding, setIsLoading] = useState(false);
 
+
+
+   const {user}=useAuthContext()!
+  const router = useRouter();
+
+ useEffect(()=>{
+  if(user && user?.role === "company" && !( "name" in user)){
+    router.push("/company/companyinfo");
+  }
+ },[])
+
+
   const uid = auth.currentUser?.uid;
+
+
+
+
+
   useEffect(() => {
     if (uid) {
       fetchData();
