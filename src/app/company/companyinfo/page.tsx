@@ -109,7 +109,7 @@ export default function CompanyInfo() {
 
   return (
     <div className="flex flex-col justify-center items-center mt-20 ">
-      <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl dark:text-black">
+      <h1 className="mb-4  text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-3xl dark:text-black">
         Jobs{" "}
         <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
           Company Information
